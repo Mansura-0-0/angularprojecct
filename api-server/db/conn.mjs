@@ -1,8 +1,8 @@
 import { MongoClient } from "mongodb";
 
-const connectionString = "mongodb://mansura:sYFJQOs2o9oQDl2m@ac-ilfdceg-shard-00-00.ow6bg9l.mongodb.net:27017,ac-ilfdceg-shard-00-01.ow6bg9l.mongodb.net:27017,ac-ilfdceg-shard-00-02.ow6bg9l.mongodb.net:27017/WP1?ssl=true&replicaSet=atlas-j8rs3r-shard-0&authSource=admin&retryWrites=true&w=majority";
+const uri = process.env.MONGODB_URI;
 
-const client = new MongoClient(connectionString);
+const client = new MongoClient(uri);
 
 let db;
 

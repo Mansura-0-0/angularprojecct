@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 
 const router = express.Router();
 
-// Get a list of 50 posts
+// Getting all perfumes 
 router.get("/", async (req, res) => {
   let collection = await db.collection("perfume");
   let results = await collection.find({})
