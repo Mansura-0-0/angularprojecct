@@ -4,12 +4,13 @@ import { ObjectId } from "mongodb";
 
 const router = express.Router();
 
-// Getting all perfumes 
+// Get a list of 50 posts
 router.get("/", async (req, res) => {
   let collection = await db.collection("perfume");
   let results = await collection.find({})
+    .limit(50)
     .toArray();
-  res.json(results);
+  res.send(results).status(200);
 });
 
 // Get a single post
