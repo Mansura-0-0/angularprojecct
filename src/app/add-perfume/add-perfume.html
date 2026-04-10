@@ -1,1 +1,11 @@
-<p>add-perfume works!</p>
+<div class ="container mt-4">
+    <h2 >Add New Perfume</h2>
+ <input [(ngModel)] ="perfume.name" class="form-control mb-2" placeholder="Name">
+    <input [(ngModel)] ="perfume.brand" class="form-control mb-2" placeholder="Brand">
+    <input [(ngModel)] ="perfume.scent" class="form-control mb-2" placeholder="Scent">
+    <input [(ngModel)] ="perfume.price" class="form-control mb-2" placeholder="Price" type="number">
+    <textarea [(ngModel)] ="perfume.description" class="form-control mb-2" placeholder="Description"></textarea>
+
+    <input type="number" [(ngModel)]="perfume.rating" class="form-control mb-2" placeholder="Rating (1-5)" min="1" max="5">
+    <button (click)="submit()" class="btn btn-primary">Add</button>
+</div>              
