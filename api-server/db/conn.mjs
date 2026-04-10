@@ -1,16 +1,18 @@
 import { MongoClient } from "mongodb";
 
-const connectionString = process.env.ATLAS_URI || "";
+const connectionString = "mongodb://mansura:sYFJQOs2o9oQDl2m@ac-ilfdceg-shard-00-00.ow6bg9l.mongodb.net:27017,ac-ilfdceg-shard-00-01.ow6bg9l.mongodb.net:27017,ac-ilfdceg-shard-00-02.ow6bg9l.mongodb.net:27017/WP1?ssl=true&replicaSet=atlas-j8rs3r-shard-0&authSource=admin&retryWrites=true&w=majority";
 
 const client = new MongoClient(connectionString);
 
-let conn;
+let db;
+
 try {
-  conn = await client.connect();
-} catch(e) {
-  console.error(e);
+  const conn = await client.connect();
+  db = conn.db("WP1");
+  console.log("Connected to MongoDB");
+} catch (err) {
+  console.error(" MongoDB connection failed:", err);
+  process.exit(1);
 }
 
-let db = conn.db("WP1");
-
-export default db;
+export default db; 
