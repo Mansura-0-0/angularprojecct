@@ -1,28 +1,13 @@
 import { Routes } from '@angular/router';
+import { Home } from './home/home';
 import { PerfumeList } from './perfume-list/perfume-list';
 import { AddPerfume } from './add-perfume/add-perfume';
 import { PerfumeDetails } from './perfume-details/perfume-details';
 
-
-
-
-
 export const routes: Routes = [
-  { path: '', component: PerfumeList }, 
-  {path:'home', component: PerfumeList},
-  
+  { path: '', component: Home },
+  { path: 'home', component: Home },
+  { path: 'perfumes', component: PerfumeList },
   { path: 'add', component: AddPerfume },
   { path: 'perfume-details/:id', component: PerfumeDetails }
 ];
-
-
-//export const routes: Routes = [
-  // Default path directly loads PerfumeList
-  
-
-  //{ path: 'add', component: AddPerfume },
-  //{ path: 'perfume-details/:id', component: PerfumeDetails },
-
-  // Optional: wildcard route for 404 handling
-  //{ path: '**', redirectTo: '', pathMatch: 'full' }
-//];

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,inject,signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { PerfumeService } from '../perfume';
+import { PerfumeService } from '../PerfumeService';
+import { Perfume } from '../perfume';
 
 @Component({
   selector: 'app-perfume-list',
@@ -10,25 +11,31 @@ import { PerfumeService } from '../perfume';
   templateUrl: './perfume-list.html'
 })
 export class PerfumeList implements OnInit {
+  private perfumeService = inject(PerfumeService);
 
-  perfumes: any[] = [];
-
-  constructor(private perfumeService: PerfumeService) {}
+  perfumes = signal<Perfume[]>([]);
+  apiError = signal(false);
 
   ngOnInit() {
     this.load();
   }
 
   load() {
-    this.perfumeService.getPerfumes().subscribe((data: any[]) => {
-      console.log(data);
-      this.perfumes = data;
+    this.perfumeService.getPerfumes().subscribe({
+      next: (data) => {
+        this.perfumes.set(data);
+        this.apiError.set(false);
+      },
+      error: () => {
+        this.apiError.set(true);
+      }
     });
   }
 
   deletePerfume(id: string) {
-    this.perfumeService.deletePerfume(id).subscribe(() => {
-      this.load();
+    this.perfumeService.deletePerfume(id).subscribe({
+      next: () => this.load(),
+      error: () => this.apiError.set(true)
     });
   }
 }

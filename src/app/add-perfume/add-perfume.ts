@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { PerfumeService } from '../perfume';
+import { PerfumeService } from '../PerfumeService';
 
 @Component({
   selector: 'app-add-perfume',
