@@ -1,28 +1,34 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { PerfumeService } from '../perfume';
 
 @Component({
   selector: 'app-perfume-list',
-  
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './perfume-list.html'
-  
 })
 export class PerfumeList implements OnInit {
 
-  perfumes: any[] = [];//this will hold the list of perfumes fetched from the server
+  perfumes: any[] = [];
 
-  constructor(private perfumeService: PerfumeService) {}//injecting the PerfumeService to fetch data from the server
+  constructor(private perfumeService: PerfumeService) {}
 
-  ngOnInit() {this.load();}
-  load() {
-    this.perfumeService.getPerfumes().subscribe((data: any[]) => {
-      this.perfumes = data;//assigning the fetched data to the perfumes array
-    });
-  
+  ngOnInit() {
+    this.load();
   }
+
+  load() {
+    this.perfumeService.getPerfumes().subscribe(data => {
+     console.log(data);
+      this.perfumes = data;
+    });
+  }
+
   deletePerfume(id: string) {
     this.perfumeService.deletePerfume(id).subscribe(() => {
-      this.load();//reload the list after deletion
+      this.load();
     });
   }
 }

@@ -1,2 +1,14 @@
 <div class ="container mt-4" *ngIf="perfume">
-   <div 
+   <div class ="card">
+       <div class="card-body">
+           <h2>{{ perfume.name }}</h2>
+           <p><strong>Brand:</strong> {{ perfume.brand }}</p>
+           <p><strong>Scent:</strong> {{ perfume.scentType }}</p>
+           <p><strong>Price:</strong> ${{ perfume.price }}</p>
+           <p><strong>Description:</strong> {{ perfume.description }}</p>
+           <p><strong>Rating:</strong> {{ perfume.rating }} / 5</p>
+
+       </div>
+   </div>
+</div>  
+

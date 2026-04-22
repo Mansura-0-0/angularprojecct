@@ -1,25 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PerfumeService } from '../perfume';
 
 @Component({
   selector: 'app-perfume-details',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './perfume-details.html'
 })
 export class PerfumeDetails implements OnInit {
-  perfume: any = {};
+
+  perfume: any;
 
   constructor(
     private route: ActivatedRoute,
     private perfumeService: PerfumeService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-   
-      this.perfumeService.getPerfume(id!).subscribe((data) => {
-        this.perfume = data;
-      });
-    }
+    this.perfumeService.getPerfume(id!).subscribe((data: any) => {
+      this.perfume = data;
+    });
   }
 }

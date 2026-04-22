@@ -7,11 +7,23 @@ import { Observable } from 'rxjs';
 })
 export class PerfumeService {
 
-  private apiUrl = 'http://localhost:5050/perfume';
+  private api = 'http://localhost:5050/perfume';
+ constructor(private http: HttpClient) {}
+ getPerfumes() {
+    return this.http.get<any[]>(this.api);
+  }
 
-  constructor(private http: HttpClient) {}
+  getPerfume(id: string) {
+    return this.http.get<any>(`${this.api}/${id}`);
+  }
 
-  getPerfumes(): Observable<any> {
-    return this.http.get(this.apiUrl);
+  addPerfume(data: any) {
+    return this.http.post(this.api, data);
+  }
+
+  deletePerfume(id: string) {
+    return this.http.delete(`${this.api}/${id}`);
   }
 }
+
+  
