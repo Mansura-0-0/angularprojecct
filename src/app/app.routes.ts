@@ -3,8 +3,12 @@ import { PerfumeList } from './perfume-list/perfume-list';
 import { AddPerfume } from './add-perfume/add-perfume';
 import { PerfumeDetails } from './perfume-details/perfume-details';
 
+
+
+
+
 export const routes: Routes = [
-  { path: '', component: PerfumeList, pathMatch: 'full' },
+  { path: '', component: PerfumeList }, 
   {path:'home', component: PerfumeList},
   
   { path: 'add', component: AddPerfume },
