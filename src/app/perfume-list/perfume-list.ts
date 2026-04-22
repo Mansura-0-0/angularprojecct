@@ -20,8 +20,8 @@ export class PerfumeList implements OnInit {
   }
 
   load() {
-    this.perfumeService.getPerfumes().subscribe(data => {
-     console.log(data);
+    this.perfumeService.getPerfumes().subscribe((data: any[]) => {
+      console.log(data);
       this.perfumes = data;
     });
   }

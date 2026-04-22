@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +7,10 @@ import { Observable } from 'rxjs';
 export class PerfumeService {
 
   private api = 'http://localhost:5050/perfume';
- constructor(private http: HttpClient) {}
- getPerfumes() {
+
+  constructor(private http: HttpClient) {}
+
+  getPerfumes() {
     return this.http.get<any[]>(this.api);
   }
 
@@ -24,6 +25,10 @@ export class PerfumeService {
   deletePerfume(id: string) {
     return this.http.delete(`${this.api}/${id}`);
   }
+  detailsPerfume(id: string) {
+    return this.http.get(`${this.api}/${id}`);
+  }
+  
 }
 
   

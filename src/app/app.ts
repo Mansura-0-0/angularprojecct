@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './navbar/navbar';
+//import { PerfumeList } from './perfume-list/perfume-list';
 
 @Component({
   selector: 'app-root',

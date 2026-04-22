@@ -19,9 +19,14 @@ export class PerfumeDetails implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.perfumeService.getPerfume(id!).subscribe((data: any) => {
-      this.perfume = data;
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+
+      if (id) {
+        this.perfumeService.getPerfume(id).subscribe((data: any) => {
+          this.perfume = data;
+        });
+      }
     });
   }
 }
