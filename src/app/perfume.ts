@@ -7,4 +7,5 @@ export interface Perfume {
   rating: number;
   price: number;
   image: string;
+  gender: string;
 }

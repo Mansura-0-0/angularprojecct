@@ -19,7 +19,8 @@ export class AddPerfume {
     scentType: '',
     rating: 1,
     price:0,
-    image:''
+    image:'',
+    gender:''
   };
 
   constructor(private perfumeService: PerfumeService) {}

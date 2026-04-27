@@ -7,6 +7,14 @@
     <textarea [(ngModel)] ="perfume.description" class="form-control mb-2" placeholder="Description"></textarea>
     <!--to add image url here -->
    <input [(ngModel)]="perfume.image" placeholder="Image URL">
+   <form> 
+    <input type="radio" [(ngModel)]="perfume.gender" value="Men" name="gender">
+    <label for="men"> Men </label>
+    <input type="radio" [(ngModel)]="perfume.gender" value="Women" name="gender">
+    <label for="women"> Women </label>
+    <input type="radio" [(ngModel)]="perfume.gender" value="Unisex" name="gender">
+    <label for="unisex"> Unisex</label>
+   </form>
     <input type="number" [(ngModel)]="perfume.rating" class="form-control mb-2" placeholder="Rating (1-5)" min="1" max="5">
     <button (click)="submit()" class="btn btn-primary">Add</button>
 </div>              
