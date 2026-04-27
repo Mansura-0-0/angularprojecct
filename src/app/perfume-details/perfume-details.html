@@ -17,6 +17,51 @@
     <p><strong>Price:</strong> €{{ perfume.price }}</p>
     <p><strong>Rating:</strong> {{ perfume.rating }}/5</p>
 
+    <hr>
+
+    <h4>Leave a Review</h4>
+
+    <div class="star-rating mb-2">
+      <span
+        *ngFor="let star of [1, 2, 3, 4, 5]"
+        [class.checked]="star <= reviewRating"
+        (click)="setReviewRating(star)">
+        ★
+      </span>
+    </div>
+
+    <textarea
+      [(ngModel)]="reviewComment"
+      class="form-control mb-2"
+      placeholder="Write your comment">
+    </textarea>
+
+    <button class="btn btn-primary" (click)="submitReview()">
+      Submit Review
+    </button>
+
+    <hr>
+
+    <h4>Reviews</h4>
+
+    <div *ngIf="perfume.reviews?.length; else noReviews">
+      <div class="card p-3 mb-2" *ngFor="let review of perfume.reviews">
+        <p>
+          <span
+            *ngFor="let star of [1, 2, 3, 4, 5]"
+            [class.checked]="star <= review.rating">
+            ★
+          </span>
+        </p>
+
+        <p>{{ review.comment }}</p>
+      </div>
+    </div>
+
+    <ng-template #noReviews>
+      <p>No reviews yet.</p>
+    </ng-template>
+
   </div>
 </div>
 

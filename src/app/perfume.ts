@@ -1,3 +1,8 @@
+export interface Review {
+  rating: number;
+  comment: string;
+}
+
 export interface Perfume {
   _id?: string;
   name: string;
@@ -8,4 +13,5 @@ export interface Perfume {
   price: number;
   image: string;
   gender: string;
+  reviews?: Review[];
 }

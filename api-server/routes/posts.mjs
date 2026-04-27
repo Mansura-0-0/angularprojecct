@@ -60,6 +60,27 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// Add a review to a perfume
+router.post("/:id/reviews", async (req, res) => {
+  try {
+    let collection = db.collection("perfume");
+
+    const review = {
+      rating: req.body.rating,
+      comment: req.body.comment
+    };
+
+    let result = await collection.updateOne(
+      { _id: new ObjectId(req.params.id) },
+      { $push: { reviews: review } }
+    );
+
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 export default router;
 /*
 
