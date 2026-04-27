@@ -15,6 +15,38 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Add a new perfume
+router.post("/", async (req, res) => {
+  try {
+    let collection = db.collection("perfume");
+    let result = await collection.insertOne(req.body);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Add a review to a perfume
+router.post("/review/:id", async (req, res) => {
+  try {
+    let collection = db.collection("perfume");
+
+    const review = {
+      rating: req.body.rating,
+      comment: req.body.comment
+    };
+
+    let result = await collection.updateOne(
+      { _id: new ObjectId(req.params.id) },
+      { $push: { reviews: review } }
+    );
+
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Get a single perfume
 router.get("/:id", async (req, res) => {
   try {
@@ -34,17 +66,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Add a new perfume
-router.post("/", async (req, res) => {
-  try {
-    let collection = db.collection("perfume");
-    let result = await collection.insertOne(req.body);
-    res.json(result);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
 // Delete a perfume
 router.delete("/:id", async (req, res) => {
   try {
@@ -53,27 +74,6 @@ router.delete("/:id", async (req, res) => {
     let result = await collection.deleteOne({
       _id: new ObjectId(req.params.id)
     });
-
-    res.json(result);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// Add a review to a perfume
-router.post("/:id/reviews", async (req, res) => {
-  try {
-    let collection = db.collection("perfume");
-
-    const review = {
-      rating: req.body.rating,
-      comment: req.body.comment
-    };
-
-    let result = await collection.updateOne(
-      { _id: new ObjectId(req.params.id) },
-      { $push: { reviews: review } }
-    );
 
     res.json(result);
   } catch (error) {

@@ -32,6 +32,6 @@ export class PerfumeService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
   addReview(id: string, review: { rating: number; comment: string }) {
-  return this.http.post(`${this.apiUrl}/${id}/reviews`, review);
+  return this.http.post(`${this.apiUrl}/review/${id}`, review);
 }
 }
