@@ -1,13 +1,72 @@
-h5{
-    
-    font-style : italic;
-    font-weight: bold;
-    font-family: cursive, vladimir script;
-    
+.about-page {
+  min-height: 100vh;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #f8efe6, #fffaf5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
-p{
-    font-style: italic;
-    font-family:  cursive, vladimir script
-    ;
-    font-size: 20px;
+
+.about-card {
+  max-width: 900px;
+  background: white;
+  padding: 45px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  border-left: 6px solid #8b5e3c;
+}
+
+.student-info {
+  color: #8b5e3c;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.about-title {
+  text-align: center;
+  font-size: 38px;
+  font-weight: bold;
+  color: #2b2118;
+  margin-bottom: 15px;
+}
+
+.divider {
+  width: 80px;
+  height: 4px;
+  background-color: #8b5e3c;
+  margin: 0 auto 30px auto;
+  border-radius: 10px;
+}
+
+.about-card p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #4a3b31;
+  margin-bottom: 22px;
+  text-align: justify;
+}
+
+.about-card p:first-of-type::first-letter {
+  font-size: 42px;
+  font-weight: bold;
+  color: #8b5e3c;
+  float: left;
+  line-height: 1;
+  padding-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .about-card {
+    padding: 30px 22px;
+  }
+
+  .about-title {
+    font-size: 30px;
+  }
+
+  .about-card p {
+    font-size: 16px;
+    text-align: left;
+  }
 }

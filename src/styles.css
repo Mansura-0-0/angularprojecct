@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+.btn-custom {
+  background-color: #8b5e3c;
+  color: white;
+  border: none;
+}
+
+.btn-custom:hover {
+  background-color: #6f472b;
+  color: white;
+}
+
+.btn-delete-custom {
+  background-color: #5c2c2c;
+  color: white;
+  border: none;
+}
+
+.btn-delete-custom:hover {
+  background-color: #3f1d1d;
+  color: white;
+}
+.btn-home {
+  background-color: #000000;
+  color: white;
+  border: none;
+}
