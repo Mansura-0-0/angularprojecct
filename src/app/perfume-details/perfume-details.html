@@ -1,14 +1,26 @@
 <div class="container mt-4" *ngIf="perfume">
-   <div class ="card">
-       <div class="card-body">
-           <h2>{{ perfume.name }}</h2>
-           <p><strong>Brand:</strong> {{ perfume.brand }}</p>
-           <p><strong>Scent:</strong> {{ perfume.scentType }}</p>
-           <p><strong>Price:</strong> ${{ perfume.price }}</p>
-           <p><strong>Description:</strong> {{ perfume.description }}</p>
-           <p><strong>Rating:</strong> {{ perfume.rating }} / 5</p>
+  <div class="card shadow-lg p-4 text-center">
 
-       </div>
-   </div>
-</div>  
+    <img
+      *ngIf="perfume.image"
+      [src]="perfume.image"
+      class="mx-auto mb-3"
+      style="max-width: 300px; height: auto; object-fit: cover;"
+    >
 
+    <h2>{{ perfume.name }}</h2>
+    <p class="text-muted">{{ perfume.brand }}</p>
+
+    <p>{{ perfume.description }}</p>
+
+    <p><strong>Scent:</strong> {{ perfume.scentType }}</p>
+    <p><strong>Price:</strong> €{{ perfume.price }}</p>
+    <p><strong>Rating:</strong> {{ perfume.rating }}/5</p>
+
+  </div>
+</div>
+
+<div class="container mt-4 text-center" *ngIf="!perfume">
+  <p *ngIf="!errorMessage">Loading perfume details...</p>
+  <p class="text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
+</div>

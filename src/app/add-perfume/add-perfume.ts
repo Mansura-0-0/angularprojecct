@@ -2,32 +2,48 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PerfumeService } from '../PerfumeService';
+import { Perfume } from '../perfume';
 
 @Component({
   selector: 'app-add-perfume',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './add-perfume.html'
+  imports: [FormsModule, CommonModule],
+  templateUrl: './add-perfume.html',
+  styleUrl: './add-perfume.css'
 })
 export class AddPerfume {
 
-  perfume = {
-    Id: '',
+  perfume: Perfume = {
     name: '',
     brand: '',
     description: '',
     scentType: '',
-    rating: 1,
-    price:0,
-    image:'',
-    gender:''
+    price: 0,
+    rating: 0,
+    image: '',
+    gender: ''
   };
 
   constructor(private perfumeService: PerfumeService) {}
 
-  submit() {
+  setRating(rating: number) {
+    this.perfume.rating = rating;
+  }
+
+  addPerfume() {
     this.perfumeService.addPerfume(this.perfume).subscribe(() => {
-      alert("Added!");
+      alert('Perfume added successfully');
+
+      this.perfume = {
+        name: '',
+        brand: '',
+        description: '',
+        scentType: '',
+        price: 0,
+        rating: 0,
+        image: '',
+        gender: ''
+      };
     });
   }
 }

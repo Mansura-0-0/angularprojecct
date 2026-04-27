@@ -1,44 +1,46 @@
-import { Component, OnInit,inject,signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { PerfumeService } from '../PerfumeService';
 import { Perfume } from '../perfume';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-perfume-list',
-   
   standalone: true,
-  imports: [CommonModule, RouterModule, RouterLink],
-  templateUrl: './perfume-list.html'
-  
+  imports: [CommonModule, RouterLink],
+  templateUrl: './perfume-list.html',
+  styleUrl: './perfume-list.css'
 })
 export class PerfumeList implements OnInit {
-  private perfumeService = inject(PerfumeService);
 
   perfumes = signal<Perfume[]>([]);
-  apiError = signal(false);
+
+  constructor(private perfumeService: PerfumeService) {}
 
   ngOnInit() {
-    this.load();
+    this.loadPerfumes();
   }
 
-  load() {
+  loadPerfumes() {
     this.perfumeService.getPerfumes().subscribe({
-      next: (data) => {
+      next: (data: Perfume[]) => {
+        console.log('Perfumes loaded:', data);
         this.perfumes.set(data);
-        this.apiError.set(false);
       },
-      error: () => {
-        this.apiError.set(true);
+      error: (error) => {
+        console.error('Error loading perfumes:', error);
       }
     });
   }
 
   deletePerfume(id: string) {
     this.perfumeService.deletePerfume(id).subscribe({
-      next: () => this.load(),
-      error: () => this.apiError.set(true)
+      next: () => {
+        this.loadPerfumes();
+      },
+      error: (error) => {
+        console.error('Error deleting perfume:', error);
+      }
     });
   }
 }

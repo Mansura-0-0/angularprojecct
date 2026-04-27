@@ -1,28 +1,34 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Perfume } from './perfume';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PerfumeService {
-  private http = inject(HttpClient);
-  private api = 'http://localhost:5050/perfume';
 
-  getPerfumes() {
-    return this.http.get<Perfume[]>(this.api);
+  private apiUrl = 'http://localhost:5050/perfume';
+
+  constructor(private http: HttpClient) {}
+
+  getPerfumes(): Observable<Perfume[]> {
+    return this.http.get<Perfume[]>(this.apiUrl);
   }
 
-  getPerfume(id: string) {
-    return this.http.get<Perfume>(`${this.api}/${id}`);
+  getAllPerfumes(): Observable<Perfume[]> {
+    return this.http.get<Perfume[]>(this.apiUrl);
   }
 
-  addPerfume(data: Perfume) {
-    return this.http.post<Perfume>(this.api, data);
+  getPerfume(id: string): Observable<Perfume> {
+    return this.http.get<Perfume>(`${this.apiUrl}/${id}`);
   }
 
-  deletePerfume(id: string) {
-    return this.http.delete(`${this.api}/${id}`);
+  addPerfume(perfume: Perfume): Observable<any> {
+    return this.http.post(this.apiUrl, perfume);
+  }
+
+  deletePerfume(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
-  

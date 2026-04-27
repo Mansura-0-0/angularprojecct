@@ -6,39 +6,61 @@ const router = express.Router();
 
 // Get all perfumes
 router.get("/", async (req, res) => {
-  let collection =  db.collection("perfume");
-  let results = await collection.find({})
-    .toArray();
-  res.json(results);
+  try {
+    let collection = db.collection("perfume");
+    let results = await collection.find({}).toArray();
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 // Get a single perfume
 router.get("/:id", async (req, res) => {
-  let collection =  db.collection("perfume");
-  let result = await collection.findOne({ 
-    _id: new ObjectId(req.params.id) });
-    res.json(result);
+  try {
+    let collection = db.collection("perfume");
+
+    let perfume = await collection.findOne({
+      _id: new ObjectId(req.params.id)
+    });
+
+    if (!perfume) {
+      return res.status(404).json({ message: "Perfume not found" });
+    }
+
+    res.json(perfume);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-// Add a new perfum to the collection
+// Add a new perfume
 router.post("/", async (req, res) => {
-  let collection =  db.collection("perfume");
-  let result = await collection.insertOne(req.body);
-  res.json(result);
+  try {
+    let collection = db.collection("perfume");
+    let result = await collection.insertOne(req.body);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-// Delete an entry
+// Delete a perfume
 router.delete("/:id", async (req, res) => {
-  let collection =  db.collection("perfume");
-  let result = await collection.deleteOne({ 
-    _id: new ObjectId(req.params.id) });
+  try {
+    let collection = db.collection("perfume");
+
+    let result = await collection.deleteOne({
+      _id: new ObjectId(req.params.id)
+    });
+
     res.json(result);
-
-
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 export default router;
-
 /*
 
 

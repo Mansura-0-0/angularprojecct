@@ -1,0 +1,10 @@
+.star-rating span {
+  font-size: 32px;
+  color: #ddd;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.star-rating span.checked {
+  color: orange;
+}
