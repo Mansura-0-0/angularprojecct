@@ -1,0 +1,73 @@
+.home-hero {
+  min-height: 420px;
+  background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+    url("https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1400&q=80");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.hero-content {
+  max-width: 700px;
+  padding: 30px;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+.hero-buttons .btn {
+  margin: 8px;
+  padding: 10px 24px;
+  border-radius: 25px;
+}
+
+.feature-card {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+  height: 100%;
+  transition: transform 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card h3 {
+  margin-bottom: 15px;
+  color: #222;
+}
+
+.feature-card p {
+  color: #666;
+}
+
+.about-box {
+  background: #f8f9fa;
+  padding: 35px;
+  border-radius: 15px;
+  text-align: center;
+  border-left: 5px solid #0d6efd;
+}
+
+.about-box h2 {
+  margin-bottom: 15px;
+}
+
+.about-box p {
+  font-size: 18px;
+  color: #555;
+}
