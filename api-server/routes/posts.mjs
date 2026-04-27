@@ -27,8 +27,11 @@ router.post("/", async (req, res) => {
 });
 
 // Add a review to a perfume
+// Add a review to a perfume
 router.post("/review/:id", async (req, res) => {
   try {
+    console.log("Review route hit:", req.params.id, req.body);
+
     let collection = db.collection("perfume");
 
     const review = {
@@ -43,6 +46,7 @@ router.post("/review/:id", async (req, res) => {
 
     res.json(result);
   } catch (error) {
+    console.log("Review error:", error);
     res.status(500).json({ message: error.message });
   }
 });
