@@ -18,6 +18,11 @@ export class PerfumeDetails implements OnInit {
 
   reviewRating: number = 0;
   reviewComment: string = '';
+  hasReviewed: boolean = false;
+
+  editingReviewId = '';
+  editReviewRating = 0;
+  editReviewComment = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -32,12 +37,11 @@ export class PerfumeDetails implements OnInit {
   loadPerfume() {
     const id = this.route.snapshot.paramMap.get('id');
 
-    console.log('ID from URL:', id);
-
     if (id) {
+      this.hasReviewed = localStorage.getItem(`reviewed-${id}`) === 'true';
+
       this.perfumeService.getPerfume(id).subscribe({
         next: (data: any) => {
-          console.log('Perfume details:', data);
           this.perfume = data;
           this.cdr.detectChanges();
         },
@@ -57,7 +61,10 @@ export class PerfumeDetails implements OnInit {
   submitReview() {
     const id = this.route.snapshot.paramMap.get('id');
 
-    if (!id) {
+    if (!id) return;
+
+    if (this.hasReviewed) {
+      alert('You have already reviewed this perfume.');
       return;
     }
 
@@ -75,6 +82,9 @@ export class PerfumeDetails implements OnInit {
       next: () => {
         alert('Review added successfully');
 
+        localStorage.setItem(`reviewed-${id}`, 'true');
+        this.hasReviewed = true;
+
         this.reviewRating = 0;
         this.reviewComment = '';
 
@@ -86,5 +96,39 @@ export class PerfumeDetails implements OnInit {
       }
     });
   }
+
+  startEditReview(review: any) {
+    this.editingReviewId = review._id;
+    this.editReviewRating = review.rating;
+    this.editReviewComment = review.comment;
+  }
+
+  saveEditedReview() {
+    const perfumeId = this.route.snapshot.paramMap.get('id');
+
+    if (!perfumeId || !this.editingReviewId) return;
+
+    const updatedReview = {
+      rating: this.editReviewRating,
+      comment: this.editReviewComment
+    };
+
+    this.perfumeService.updateReview(perfumeId, this.editingReviewId, updatedReview).subscribe({
+      next: () => {
+        alert('Review updated successfully');
+        this.cancelEdit();
+        this.loadPerfume();
+      },
+      error: (error) => {
+        console.error('Error updating review:', error);
+        alert('Could not update review.');
+      }
+    });
+  }
+
+  cancelEdit() {
+    this.editingReviewId = '';
+    this.editReviewRating = 0;
+    this.editReviewComment = '';
+  }
 }
- 

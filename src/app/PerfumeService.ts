@@ -31,7 +31,16 @@ export class PerfumeService {
   deletePerfume(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
-  addReview(id: string, review: { rating: number; comment: string }) {
-  return this.http.post(`${this.apiUrl}/review/${id}`, review);
-}
+
+  addReview(id: string, review: { rating: number; comment: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/review/${id}`, review);
+  }
+
+  updateReview(
+    perfumeId: string,
+    reviewId: string,
+    review: { rating: number; comment: string }
+  ): Observable<any> {
+    return this.http.put(`${this.apiUrl}/review/${perfumeId}/${reviewId}`, review);
+  }
 }

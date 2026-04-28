@@ -36,9 +36,16 @@
       placeholder="Write your comment">
     </textarea>
 
-    <button class="btn btn-custom" (click)="submitReview()">
+    <button
+  class="btn btn-custom"
+  (click)="submitReview()"
+  [disabled]="hasReviewed">
   Submit Review
 </button>
+
+<p class="text-muted mt-2" *ngIf="hasReviewed">
+  You have already reviewed this perfume.
+</p>
 
     <hr>
 
@@ -55,7 +62,44 @@
         </p>
 
         <p>{{ review.comment }}</p>
+
+        <button
+  class="btn btn-sm btn-custom"
+  (click)="startEditReview(review)"
+  *ngIf="review._id">
+  Edit
+</button>
+
+<p class="text-muted small" *ngIf="!review._id">
+  This old review cannot be edited.
+</p>
       </div>
+    </div>
+
+    <div class="card p-3 mt-3" *ngIf="editingReviewId">
+      <h5>Edit Review</h5>
+
+      <div class="star-rating mb-2">
+        <span
+          *ngFor="let star of [1, 2, 3, 4, 5]"
+          [class.checked]="star <= editReviewRating"
+          (click)="editReviewRating = star">
+          ★
+        </span>
+      </div>
+
+      <textarea
+        [(ngModel)]="editReviewComment"
+        class="form-control mb-2">
+      </textarea>
+
+      <button class="btn btn-custom me-2" (click)="saveEditedReview()">
+        Save Changes
+      </button>
+
+      <button class="btn btn-secondary" (click)="cancelEdit()">
+        Cancel
+      </button>
     </div>
 
     <ng-template #noReviews>

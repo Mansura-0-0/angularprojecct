@@ -26,27 +26,49 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Add a review to a perfume
+
 // Add a review to a perfume
 router.post("/review/:id", async (req, res) => {
   try {
-    console.log("Review route hit:", req.params.id, req.body);
-
     let collection = db.collection("perfume");
 
     const review = {
+      _id: new ObjectId().toString(),
       rating: req.body.rating,
       comment: req.body.comment
     };
 
-    let result = await collection.updateOne(
+    await collection.updateOne(
       { _id: new ObjectId(req.params.id) },
       { $push: { reviews: review } }
     );
 
+    res.json(review);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Edit a review
+router.put("/review/:perfumeId/:reviewId", async (req, res) => {
+  try {
+    let collection = db.collection("perfume");
+
+   let result = await collection.updateOne(
+  {
+    _id: new ObjectId(req.params.perfumeId),
+    "reviews._id": req.params.reviewId
+  },
+  {
+    $set: {
+      "reviews.$.rating": req.body.rating,
+      "reviews.$.comment": req.body.comment
+    }
+  }
+);
+
     res.json(result);
   } catch (error) {
-    console.log("Review error:", error);
     res.status(500).json({ message: error.message });
   }
 });
