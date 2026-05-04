@@ -50,6 +50,10 @@ router.post("/review/:id", async (req, res) => {
 });
 
 // Edit a review
+//.prams i tried with a help of a friend whos developer and i learned from 
+//https://angular.io/api/router/ActivatedRoute
+//https://angular.io/guide/router
+//https://www.w3schools.com/angular/angular_routing.asp
 router.put("/review/:perfumeId/:reviewId", async (req, res) => {
   try {
     let collection = db.collection("perfume");

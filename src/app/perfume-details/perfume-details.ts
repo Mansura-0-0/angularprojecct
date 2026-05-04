@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+//I learn about ChangeDetectorRef while troubleshooting an issue where  data was loading in the console but not updating in the UI. I referred to Angular documentation and online resources to understand how to manually trigger the change detection.
+//https://angular.io/api/core/ChangeDetectorRef
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -14,15 +16,17 @@ import { PerfumeService } from '../PerfumeService';
 export class PerfumeDetails implements OnInit {
 
   perfume: any = null;
-  errorMessage: string = '';
+  errorMessage = '';
 
-  reviewRating: number = 0;
-  reviewComment: string = '';
-  hasReviewed: boolean = false;
+  reviewRating = 0;
+  reviewComment = '';
+  hasReviewed = false;
 
   editingReviewId = '';
   editReviewRating = 0;
   editReviewComment = '';
+
+  currentPerfumeId = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -31,27 +35,32 @@ export class PerfumeDetails implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadPerfume();
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      console.log('ID FROM URL:', id);
+
+      if (id) {
+        this.currentPerfumeId = id;
+        this.loadPerfume(id);
+      }
+    });
   }
 
-  loadPerfume() {
-    const id = this.route.snapshot.paramMap.get('id');
+  loadPerfume(id: string) {
+    this.hasReviewed = localStorage.getItem(`reviewed-${id}`) === 'true';
 
-    if (id) {
-      this.hasReviewed = localStorage.getItem(`reviewed-${id}`) === 'true';
-
-      this.perfumeService.getPerfume(id).subscribe({
-        next: (data: any) => {
-          this.perfume = data;
-          this.cdr.detectChanges();
-        },
-        error: (error) => {
-          console.error('Error loading perfume:', error);
-          this.errorMessage = 'Could not load perfume details.';
-          this.cdr.detectChanges();
-        }
-      });
-    }
+    this.perfumeService.getPerfume(id).subscribe({
+      next: (data: any) => {
+        console.log('Perfume details:', data);
+        this.perfume = data;
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error loading perfume:', error);
+        this.errorMessage = 'Could not load perfume details.';
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   setReviewRating(rating: number) {
@@ -59,7 +68,7 @@ export class PerfumeDetails implements OnInit {
   }
 
   submitReview() {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.currentPerfumeId;
 
     if (!id) return;
 
@@ -88,7 +97,7 @@ export class PerfumeDetails implements OnInit {
         this.reviewRating = 0;
         this.reviewComment = '';
 
-        this.loadPerfume();
+        this.loadPerfume(id);
       },
       error: (error) => {
         console.error('Error adding review:', error);
@@ -104,7 +113,7 @@ export class PerfumeDetails implements OnInit {
   }
 
   saveEditedReview() {
-    const perfumeId = this.route.snapshot.paramMap.get('id');
+    const perfumeId = this.currentPerfumeId;
 
     if (!perfumeId || !this.editingReviewId) return;
 
@@ -117,7 +126,7 @@ export class PerfumeDetails implements OnInit {
       next: () => {
         alert('Review updated successfully');
         this.cancelEdit();
-        this.loadPerfume();
+        this.loadPerfume(perfumeId);
       },
       error: (error) => {
         console.error('Error updating review:', error);

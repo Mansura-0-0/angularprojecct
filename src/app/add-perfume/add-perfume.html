@@ -1,35 +1,35 @@
 <div class="container mt-4">
   <h2>Add New Perfume</h2>
 
-  <input [(ngModel)]="perfume.name" class="form-control mb-2" placeholder="Name">
+  <input [(ngModel)]="perfume.name" class="form-control mb-2" placeholder="Name" required>
 
-  <input [(ngModel)]="perfume.brand" class="form-control mb-2" placeholder="Brand">
+  <input [(ngModel)]="perfume.brand" class="form-control mb-2" placeholder="Brand" required>
 
-  <input [(ngModel)]="perfume.scentType" class="form-control mb-2" placeholder="Scent">
+  <input [(ngModel)]="perfume.scentType" class="form-control mb-2" placeholder="Scent" required>
 
-  <input [(ngModel)]="perfume.price" class="form-control mb-2" placeholder="Price" type="number">
+  <input [(ngModel)]="perfume.price" class="form-control mb-2" placeholder="Price" type="number" required>
 
-  <textarea [(ngModel)]="perfume.description" class="form-control mb-2" placeholder="Description"></textarea>
+  <textarea [(ngModel)]="perfume.description" class="form-control mb-2" placeholder="Description" required></textarea>
 
-  <input [(ngModel)]="perfume.image" class="form-control mb-3" placeholder="Image URL">
+  <input [(ngModel)]="perfume.image" class="form-control mb-3" placeholder="Image URL"  required>
 
   <div class="mb-3">
     <label class="form-label d-block">Gender</label>
 
-    <input type="radio" [(ngModel)]="perfume.gender" value="Men" name="gender">
+    <input type="radio" [(ngModel)]="perfume.gender" value="Men" name="gender" required>
     <label class="me-3">Men</label>
 
-    <input type="radio" [(ngModel)]="perfume.gender" value="Women" name="gender">
+    <input type="radio" [(ngModel)]="perfume.gender" value="Women" name="gender" required>
     <label class="me-3">Women</label>
 
-    <input type="radio" [(ngModel)]="perfume.gender" value="Unisex" name="gender">
+    <input type="radio" [(ngModel)]="perfume.gender" value="Unisex" name="gender" required>
     <label>Unisex</label>
   </div>
 
 
 
     <div class="mb-3">
-  <label class="form-label d-block">Rating</label>
+  <label class="form-label d-block" >Rating</label>
 
   <div class="star-rating">
     <span

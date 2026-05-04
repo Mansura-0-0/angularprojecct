@@ -31,19 +31,32 @@ export class AddPerfume {
   }
 
   addPerfume() {
-    this.perfumeService.addPerfume(this.perfume).subscribe(() => {
-      alert('Perfume added successfully');
-
-      this.perfume = {
-        name: '',
-        brand: '',
-        description: '',
-        scentType: '',
-        price: 0,
-        rating: 0,
-        image: '',
-        gender: ''
-      };
-    });
+  if (
+    this.perfume.name.trim() === '' ||
+    this.perfume.brand.trim() === '' ||
+    this.perfume.scentType.trim() === '' ||
+    this.perfume.price <= 0 ||
+    this.perfume.description.trim() === '' ||
+    this.perfume.image.trim() === '' ||
+    this.perfume.gender.trim() === '' ||
+    this.perfume.rating === 0
+  ) {
+    alert('Please fill in all fields before adding a perfume.');
+    return;
   }
-}
+
+  this.perfumeService.addPerfume(this.perfume).subscribe(() => {
+    alert('Perfume added successfully');
+
+    this.perfume = {
+      name: '',
+      brand: '',
+      description: '',
+      scentType: '',
+      price: 0,
+      rating: 0,
+      image: '',
+      gender: ''
+    };
+  });
+}}
