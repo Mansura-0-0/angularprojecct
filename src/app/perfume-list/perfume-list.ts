@@ -1,19 +1,21 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { PerfumeService } from '../PerfumeService';
 import { Perfume } from '../perfume';
 
 @Component({
   selector: 'app-perfume-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './perfume-list.html',
   styleUrl: './perfume-list.css'
 })
 export class PerfumeList implements OnInit {
 
   perfumes = signal<Perfume[]>([]);
+  searchText = '';
 
   constructor(private perfumeService: PerfumeService) {}
 
@@ -24,13 +26,20 @@ export class PerfumeList implements OnInit {
   loadPerfumes() {
     this.perfumeService.getPerfumes().subscribe({
       next: (data: Perfume[]) => {
-        console.log('Perfumes loaded:', data);
         this.perfumes.set(data);
       },
       error: (error) => {
         console.error('Error loading perfumes:', error);
       }
     });
+  }
+
+  filteredPerfumes() {
+    return this.perfumes().filter(p =>
+      p.name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      p.brand.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      p.scentType.toLowerCase().includes(this.searchText.toLowerCase())
+    );
   }
 
   deletePerfume(id: string) {

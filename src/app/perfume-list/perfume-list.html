@@ -1,14 +1,24 @@
 <div class="container mt-4">
   <h2 class="mb-4 text-center">Perfume Collection</h2>
 
+  <input
+    type="text"
+    class="form-control mb-4"
+    placeholder="Search by name, brand or scent..."
+    [(ngModel)]="searchText"
+  >
+
   <div class="row">
-    <div class="col-md-3 mb-4" *ngFor="let p of perfumes()">
+    <div class="col-md-3 mb-4" *ngFor="let p of filteredPerfumes()">
 
       <div class="card shadow-lg h-100">
 
-        <img *ngIf="p.image" [src]="p.image"
-             class="card-img-top"
-             style="height:auto; object-fit:cover;">
+        <img
+          *ngIf="p.image"
+          [src]="p.image"
+          class="card-img-top"
+          style="height: 220px; object-fit: contain; padding: 10px;"
+        >
 
         <div class="card-body text-center">
           <h5 class="card-title">{{ p.name }}</h5>
@@ -17,13 +27,17 @@
           <p><strong>Scent:</strong> {{ p.scentType }}</p>
           <p><strong>Price:</strong> €{{ p.price }}</p>
 
-         <button [routerLink]="['/perfume-details', p._id]" class="btn btn-custom btn-sm me-2">
-  Details
-</button>
+          <button
+            [routerLink]="['/perfume-details', p._id]"
+            class="btn btn-custom btn-sm me-2">
+            Details
+          </button>
 
-          <button (click)="deletePerfume(p._id!)" class="btn btn-delete-custom btn-sm">
-  Delete
-</button>
+          <button
+            (click)="deletePerfume(p._id!)"
+            class="btn btn-delete-custom btn-sm">
+            Delete
+          </button>
         </div>
 
       </div>

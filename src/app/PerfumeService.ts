@@ -8,7 +8,7 @@ import { Perfume } from './perfume';
 })
 export class PerfumeService {
 
-  private apiUrl = 'http://localhost:5050/perfume';
+  private apiUrl = 'http://34.246.174.124:5050/perfume';
 
   constructor(private http: HttpClient) {}
 
