@@ -12,6 +12,7 @@ import { Perfume } from '../perfume';
   templateUrl: './perfume-list.html',
   styleUrl: './perfume-list.css'
 })
+//to display the list of perfumes
 export class PerfumeList implements OnInit {
 
   perfumes = signal<Perfume[]>([]);
@@ -22,7 +23,7 @@ export class PerfumeList implements OnInit {
   ngOnInit() {
     this.loadPerfumes();
   }
-
+//to load perfumes from the service
   loadPerfumes() {
     this.perfumeService.getPerfumes().subscribe({
       next: (data: Perfume[]) => {
@@ -33,7 +34,8 @@ export class PerfumeList implements OnInit {
       }
     });
   }
-
+//to filter perfumes based on search text
+//making it case sensitive and searching in name or brand and scent type
   filteredPerfumes() {
     return this.perfumes().filter(p =>
       p.name.toLowerCase().includes(this.searchText.toLowerCase()) ||
@@ -41,7 +43,7 @@ export class PerfumeList implements OnInit {
       p.scentType.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
-
+//to delete a perfume
   deletePerfume(id: string) {
     this.perfumeService.deletePerfume(id).subscribe({
       next: () => {

@@ -7,7 +7,7 @@ import { Perfume } from './perfume';
   providedIn: 'root'
 })
 export class PerfumeService {
-
+//to set the api url
   private apiUrl = 'http://34.246.174.124:5050/perfume';
 
   constructor(private http: HttpClient) {}
@@ -35,7 +35,7 @@ export class PerfumeService {
   addReview(id: string, review: { rating: number; comment: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/review/${id}`, review);
   }
-
+//to update a review of a perfume
   updateReview(
     perfumeId: string,
     reviewId: string,

@@ -11,6 +11,7 @@ import { Perfume } from '../perfume';
   templateUrl: './add-perfume.html',
   styleUrl: './add-perfume.css'
 })
+//to add a new perfume
 export class AddPerfume {
 
   perfume: Perfume = {
@@ -23,7 +24,7 @@ export class AddPerfume {
     image: '',
     gender: ''
   };
-
+//to set the rating of the perfume
   constructor(private perfumeService: PerfumeService) {}
 
   setRating(rating: number) {
@@ -44,7 +45,7 @@ export class AddPerfume {
     alert('Please fill in all fields before adding a perfume.');
     return;
   }
-
+//to call th service to add the perfume
   this.perfumeService.addPerfume(this.perfume).subscribe(() => {
     alert('Perfume added successfully');
 
